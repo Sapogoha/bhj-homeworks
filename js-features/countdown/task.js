@@ -9,7 +9,7 @@ function countdown() {
   if (initialVallue >= 0) {
     timer.textContent = initialVallue;
   } else {
-    clearInterval(1);
+    clearInterval(countdown);
     alert('Вы победили в конкурсе');
   }
 }
