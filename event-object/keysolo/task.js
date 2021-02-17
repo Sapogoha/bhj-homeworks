@@ -4,10 +4,11 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timerElement = container.querySelector('.timer');
 
     this.reset();
-
     this.registerEvents();
+    this.setTimer();
   }
 
   reset() {
@@ -16,14 +17,24 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  setTimer() {
+    this.timerElement.textContent = this.wordElement.textContent.length;
+    this.timerId = setInterval(() => {
+      let count = this.timerElement.textContent - 1;
+      this.timerElement.textContent = count;
+      if (count === 0) {
+        clearInterval(this.timerId);
+        this.fail();
+      }
+    }, 1000);
+  }
+
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    document.addEventListener('keydown', (event) => {
+      this.currentSymbol.textContent.toLowerCase() == event.key.toLowerCase()
+        ? this.success()
+        : this.fail();
+    });
   }
 
   success() {
@@ -38,6 +49,8 @@ class Game {
       this.reset();
     }
     this.setNewWord();
+    clearInterval(this.timerId);
+    this.setTimer();
   }
 
   fail() {
@@ -46,6 +59,8 @@ class Game {
       this.reset();
     }
     this.setNewWord();
+    clearInterval(this.timerId);
+    this.setTimer();
   }
 
   setNewWord() {
@@ -66,7 +81,7 @@ class Game {
         'popcorn',
         'cinema',
         'love',
-        'javascript'
+        'javascript',
       ],
       index = Math.floor(Math.random() * words.length);
 
@@ -77,7 +92,7 @@ class Game {
     const html = [...word]
       .map(
         (s, i) =>
-          `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
+          `<span class="symbol ${i === 0 ? 'symbol_current' : ''}">${s}</span>`
       )
       .join('');
     this.wordElement.innerHTML = html;
@@ -86,5 +101,4 @@ class Game {
   }
 }
 
-new Game(document.getElementById('game'))
-
+new Game(document.getElementById('game'));
