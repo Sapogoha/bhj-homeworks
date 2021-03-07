@@ -39,14 +39,13 @@ function addProductToCart(productId, productImg, productAmount) {
 </div>`
     );
   } else {
-    let productMatchId = [
+    const foundProduct = [
       ...cartProducts.querySelectorAll('.cart__product'),
     ].find((element) => element.dataset.id === productId);
-    Number(
-      (productMatchId.querySelector(
-        '.cart__product-count'
-      ).textContent += +Number(productAmount))
-    );
+
+    foundProduct.querySelector('.cart__product-count').textContent =
+      Number(foundProduct.querySelector('.cart__product-count').textContent) +
+      productAmount;
   }
 }
 
