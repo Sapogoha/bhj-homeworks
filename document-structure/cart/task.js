@@ -26,6 +26,7 @@ products.forEach((product) => {
 
   productAdd.addEventListener('click', () => {
     addProductToCart(productId, productImg, Number(productAmount.textContent));
+    productAmount.textContent = 1;
   });
 });
 
