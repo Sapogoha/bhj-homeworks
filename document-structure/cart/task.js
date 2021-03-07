@@ -14,18 +14,18 @@ products.forEach((product) => {
   productAmount.textContent = 1;
 
   productPlus.addEventListener('click', () => {
-    Number(productAmount.textContent++);
+    productAmount.textContent++;
   });
 
   productMinus.addEventListener('click', () => {
-    Number(productAmount.textContent--);
+    productAmount.textContent--;
     if (productAmount.textContent < 1) {
       productAmount.textContent = 1;
     }
   });
 
   productAdd.addEventListener('click', () => {
-    addProductToCart(productId, productImg, productAmount.textContent);
+    addProductToCart(productId, productImg, Number(productAmount.textContent));
   });
 });
 
@@ -35,7 +35,7 @@ function addProductToCart(productId, productImg, productAmount) {
       'beforeEnd',
       `<div class='cart__product' data-id=${productId}>
     <img class='cart__product-image' src=${productImg}>
-    <div class='cart__product-count'>${Number(productAmount)}</div>
+    <div class='cart__product-count'>${productAmount}</div>
 </div>`
     );
   } else {
