@@ -15,10 +15,14 @@ tooltips.forEach((item) => {
   item.addEventListener('click', (item) => {
     item.preventDefault();
 
-    document
-      .querySelectorAll('.tooltip_active')
-      .forEach((item) => item.classList.remove('tooltip_active'));
+    if (tooltip.classList.contains('tooltip_active')) {
+      tooltip.classList.remove('tooltip_active');
+    } else {
+      document
+        .querySelectorAll('.tooltip_active')
+        .forEach((item) => item.classList.remove('tooltip_active'));
 
-    tooltip.classList.add('tooltip_active');
+      tooltip.classList.add('tooltip_active');
+    }
   });
 });
